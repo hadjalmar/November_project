@@ -1,6 +1,6 @@
 const { mysqlTable, int, varchar } = require("drizzle-orm/mysql-core");
 
-const users = mysqlTable('users', {
+const users = mysqlTable('nyiltnap', {
   id: serial('id').primaryKey(),
   email: text('email').notNull().unique(),
   passwordHash: text('password_hash').notNull(),
