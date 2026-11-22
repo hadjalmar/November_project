@@ -63,7 +63,11 @@ export default {
           <td>{{ lessons.startsAt }}</td>
           <td>{{ lessons.endsAt }}</td>
           <td>{{ lessons.capacity }}</td>
-          <button>jelentkezés</button>
+          <button
+            type="button"
+            class="rounded-lg bg-indigo-600 px-3.5 py-2 text-sm font-medium text-white transition hover:bg-indigo-700 disabled:cursor-not-allowed disabled:bg-slate-300">
+            Jelentkezés
+          </button>
       </tr>
     </tbody>
   </table>
