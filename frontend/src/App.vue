@@ -10,10 +10,17 @@ export default {
     return {
       
     }
+
+  },
+    methods:{
+        async loadLessons(){
+
+        }
+    
   },
 }
 </script>
 
 <template>
-  
+
 </template>
