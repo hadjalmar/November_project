@@ -10,18 +10,18 @@ const users = mysqlTable('users', {
 });
 
 const teachers = mysqlTable('teachers',{
-  id: int('id').primaryKey.autoincrement(),
-  name: varchar('name', {length: 50}).notnull()
+  id: int('id').primaryKey().autoincrement(),
+  name: varchar('name', {length: 50}).notNull()
 })
 
 const lessons = mysqlTable('lessons', {
-  id: int('id').primaryKey.autoincrement(),
+  id: int('id').primaryKey().autoincrement(),
   subject: varchar('subject',{length: 50}).notNull(),
   room: varchar('room',{length: 50}).notNull(),
-  teachers_id: varchar('teachers_id').references(()=> teachers.id),
+  teachers_id: int('teachers_id', {length: 50}).notNull().references(()=> teachers.id),
   capacity: int('capacity',{length: 5}),
   starts: datetime('starts').notNull(),
-  ends: datetime('starts').notNull(),
+  ends: datetime('ends').notNull(),
 })
 
 module.exports = { users, teachers, lessons};
