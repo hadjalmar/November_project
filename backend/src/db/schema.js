@@ -4,10 +4,9 @@ const users = mysqlTable('users', {
   id: serial('id').primaryKey(),
   email: text('email').notNull().unique(),
   passwordHash: text('password_hash').notNull(),
-  role: text('role').notNull().default('visitor'), // 'visitor' | 'admin'
+  role: text('role').notNull().default('visitor'), 
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });
-
 
 
 
