@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:3000/api/products";
+const API_URL = "http://localhost:3000/api/nyiltnap";
 
 const getLessons = async()=>{
     const response = await fetch(API_URL);
