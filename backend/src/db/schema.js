@@ -1,10 +1,14 @@
 const { mysqlTable, int, varchar } = require("drizzle-orm/mysql-core");
 
-const users = mysqlTable("users", {
-  id: int("id").primaryKey().autoincrement(),
-  name: varchar("name", { length: 255 }),
-  email: varchar("email", { length: 255 }).notNull().unique(),
+const users = mysqlTable('users', {
+  id: serial('id').primaryKey(),
+  email: text('email').notNull().unique(),
+  passwordHash: text('password_hash').notNull(),
+  role: text('role').notNull().default('visitor'), // 'visitor' | 'admin'
+  createdAt: timestamp('created_at').defaultNow().notNull(),
 });
 
-module.exports = { users };
 
+
+
+module.exports = { users };
