@@ -8,6 +8,8 @@ dotenv.config({ path: path.resolve(__dirname, "../.env") });
 dotenv.config();
 
 const usersRouter = require("./routes/users");
+const lessonsRouter = require("./routes/lessons");
+const teachersRouter = require("./routes/teachers");
 
 const app = express();
 const PROJECT_NAME = process.env.PROJECT_NAME || "fullstack";
@@ -27,7 +29,11 @@ try {
   const cors = require("cors");
   corsMiddleware = cors({
     origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes("*") || allowedOrigins.includes(origin)) {
+      if (
+        !origin ||
+        allowedOrigins.includes("*") ||
+        allowedOrigins.includes(origin)
+      ) {
         return callback(null, true);
       }
       return callback(new Error(`CORS blocked for origin: ${origin}`));
@@ -38,7 +44,11 @@ try {
   // Built-in fallback CORS middleware
   corsMiddleware = (req, res, next) => {
     const origin = req.headers.origin;
-    if (!origin || allowedOrigins.includes("*") || allowedOrigins.includes(origin)) {
+    if (
+      !origin ||
+      allowedOrigins.includes("*") ||
+      allowedOrigins.includes(origin)
+    ) {
       if (origin) {
         res.setHeader("Access-Control-Allow-Origin", origin);
       } else {
@@ -46,9 +56,12 @@ try {
       }
       res.setHeader(
         "Access-Control-Allow-Methods",
-        "GET, POST, PUT, DELETE, OPTIONS, PATCH"
+        "GET, POST, PUT, DELETE, OPTIONS, PATCH",
       );
-      res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+      res.setHeader(
+        "Access-Control-Allow-Headers",
+        "Content-Type, Authorization",
+      );
       res.setHeader("Access-Control-Allow-Credentials", "true");
     }
 
@@ -78,6 +91,8 @@ app.get("/api/health", (req, res) => {
 
 // Routes
 app.use("/api/users", usersRouter);
+app.use("/api/lessons", lessonsRouter);
+app.use("/api/teachers", teachersRouter);
 
 // Global Error Handler
 app.use((err, req, res, next) => {
@@ -89,7 +104,9 @@ app.use((err, req, res, next) => {
 
 app.listen(PORT, () => {
   console.log(`==============================================`);
-  console.log(`🚀 [${PROJECT_NAME}] Express API running on http://localhost:${PORT}`);
+  console.log(
+    `🚀 [${PROJECT_NAME}] Express API running on http://localhost:${PORT}`,
+  );
   console.log(`🌐 CORS enabled for Frontend Port: ${FRONTEND_PORT}`);
   console.log(`🩺 Health check: http://localhost:${PORT}/api/health`);
   console.log(`==============================================`);
