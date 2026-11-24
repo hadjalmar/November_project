@@ -1,3 +1,4 @@
+const { primaryKey } = require("drizzle-orm/gel-core");
 const { datetime } = require("drizzle-orm/mysql-core");
 const { mysqlTable, int, varchar } = require("drizzle-orm/mysql-core");
 
@@ -18,13 +19,13 @@ const lessons = mysqlTable("lessons", {
   id: int("id", { length: 10 }).primaryKey().autoincrement(),
   subject_id: int("subject_id", { length: 10 })
     .notNull()
-    .references(() => subject.id),
+    .references(() => subject.id, { onDelete: "cascade" }),
   room_id: int("room_id", { length: 10 })
     .notNull()
-    .references(() => rooms.id),
+    .references(() => rooms.id, { onDelete: "cascade" }),
   teachers_id: int("teachers_id", { length: 10 })
     .notNull()
-    .references(() => teachers.id),
+    .references(() => teachers.id, { onDelete: "cascade" }),
   capacity: int("capacity", { length: 5 }),
   starts: datetime("starts").notNull(),
   ends: datetime("ends").notNull(),
@@ -40,4 +41,26 @@ const subject = mysqlTable("subject", {
   name: varchar("name", { length: 50 }).notNull(),
 });
 
-module.exports = { users, teachers, lessons, rooms, subject };
+const lesson_registrations = mysqlTable(
+  "lesson_registrations",
+  {
+    lessons_id: int("lessons_id", { length: 10 })
+      .notNull()
+      .references(() => lessons.id, { onDelete: "cascade" }),
+    users_id: int("users_id", { length: 10 })
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+  },
+  (table) => ({
+    pk: primaryKey({ columns: [table.lessons_id, table.users_id] }),
+  }),
+);
+
+module.exports = {
+  users,
+  teachers,
+  lessons,
+  rooms,
+  subject,
+  lesson_registrations,
+};
