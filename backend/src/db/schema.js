@@ -26,7 +26,6 @@ const lessons = mysqlTable("lessons", {
   teachers_id: int("teachers_id", { length: 10 })
     .notNull()
     .references(() => teachers.id, { onDelete: "cascade" }),
-  capacity: int("capacity", { length: 5 }),
   starts: datetime("starts").notNull(),
   ends: datetime("ends").notNull(),
 });
@@ -34,6 +33,7 @@ const lessons = mysqlTable("lessons", {
 const rooms = mysqlTable("rooms", {
   id: int("id", { length: 10 }).primaryKey().autoincrement(),
   name: varchar("name", { length: 50 }).notNull(),
+  capacity: int("capacity", { length: 5 }),
 });
 
 const subject = mysqlTable("subject", {
