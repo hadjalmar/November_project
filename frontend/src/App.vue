@@ -11,9 +11,9 @@ export default {
     return {
       lessons:[],
       Newlesson:{
-        teacherName:"",
-        subject:"",
-        room:"",
+        teachers_id:"",
+        subject_id:"",
+        room_id:"",
         startsAt:"",
         endsAt:"",
         capacity:""
